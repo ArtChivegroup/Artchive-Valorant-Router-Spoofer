@@ -1,0 +1,4 @@
+ttkbootstrap
+wmi
+pillow==9.5.0
+pywin32
