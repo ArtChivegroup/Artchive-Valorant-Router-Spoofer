@@ -18,7 +18,7 @@ A modern GUI tool that spoofs your network adapter to simulate a new router iden
 - ✅ One-click ON/OFF toggle
 - ✅ Adapter auto-disable/enable
 - ✅ Progress meter + clean log output
-- ✅ GUI in English, lightweight, and offline
+
 
 ---
 
@@ -72,11 +72,15 @@ pip install ttkbootstrap wmi pillow==9.5.0
 
 ---
 
+[Download For Windows](https://github.com/ArtChivegroup/Artchive-Valorant-Router-Spoofer/releases/download/nightly-20250324-1956/Artchive-Valorant-Router-Spoofer.exe)
+
 ## ☕ Buy Me a Coffee
 
 If this project helped you get back in the game...
 
-💛 https://buymeacoffee.com/dmzartchive
+<a href="https://buymeacoffee.com/dmzartchive" target="_blank">
+  <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-%23FFDD00.svg?&style=flat&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee" />
+</a>
 
 Every sip keeps the code clean and the bypass smoother 😎
 
