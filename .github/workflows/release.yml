@@ -34,15 +34,15 @@ jobs:
           copy warp_toggle.py dist_package\\
           powershell Compress-Archive -Path dist_package\\* -DestinationPath Artchive-Valorant-Router-Spoofer.zip
 
-      - name: Get current date
-        id: date
-        run: echo \"::set-output name=tag::$(date +'%Y%m%d-%H%M')\"
+      - name: Generate tag
+        id: tagger
+        run: echo "TAG=nightly-$(Get-Date -Format yyyyMMdd-HHmm)" >> $env:GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: nightly-${{ steps.date.outputs.tag }}
-          name: Artchive Spoofer Build ${{ steps.date.outputs.tag }}
+          tag_name: ${{ env.TAG }}
+          name: Artchive Spoofer Build ${{ env.TAG }}
           body: |
             ✅ Auto-built router spoof EXE for Valorant
             🔒 MAC spoof, TTL, MTU, DNS bypass
@@ -50,4 +50,4 @@ jobs:
             Artchive-Valorant-Router-Spoofer.zip
             dist/Artchive-Valorant-Router-Spoofer.exe
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
