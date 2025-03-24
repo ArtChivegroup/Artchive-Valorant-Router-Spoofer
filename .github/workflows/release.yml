@@ -1,0 +1,53 @@
+name: Auto Build and Release Spoofer
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build EXE using PyInstaller
+        run: |
+          pyinstaller --onefile --noconsole --name "Artchive-Valorant-Router-Spoofer" warp_toggle.py
+
+      - name: Prepare ZIP package
+        run: |
+          mkdir dist_package
+          copy dist\\Artchive-Valorant-Router-Spoofer.exe dist_package\\
+          copy warp_toggle.py dist_package\\
+          powershell Compress-Archive -Path dist_package\\* -DestinationPath Artchive-Valorant-Router-Spoofer.zip
+
+      - name: Get current date
+        id: date
+        run: echo \"::set-output name=tag::$(date +'%Y%m%d-%H%M')\"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: nightly-${{ steps.date.outputs.tag }}
+          name: Artchive Spoofer Build ${{ steps.date.outputs.tag }}
+          body: |
+            ✅ Auto-built router spoof EXE for Valorant
+            🔒 MAC spoof, TTL, MTU, DNS bypass
+          files: |
+            Artchive-Valorant-Router-Spoofer.zip
+            dist/Artchive-Valorant-Router-Spoofer.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
